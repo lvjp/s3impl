@@ -1,0 +1,44 @@
+---
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - gosec
+        - goconst
+linters:
+  enable:
+    - asciicheck
+    - bodyclose
+    - dupl
+    - errcheck
+    - errname
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - gomnd
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
+    - nestif
+    - nilerr
+    - nilnil
+    - revive
+    - staticcheck
+    - typecheck
+    - unconvert
+    - unused
+linters-settings:
+  errcheck:
+    check-blank: true
+  govet:
+    check-shadowing: true
+  gocyclo:
+    # 30 by default
+    min-complexity: 15
+  maligned:
+    suggest-new: true
