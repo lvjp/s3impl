@@ -1,0 +1,3 @@
+endpoint:
+  addr: "localhost:8080"
+  httpReadHeaderTimeout: 30s
