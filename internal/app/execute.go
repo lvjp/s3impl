@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	stdlog "log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,6 +18,9 @@ func Execute(configPath string) error {
 	if err != nil {
 		return fmt.Errorf("could not read config: %w", err)
 	}
+
+	stdlog.SetFlags(0)
+	stdlog.SetOutput(log.Logger.With().Str("module", "stdlog").Logger())
 
 	app, err := New(log.Logger.WithContext(context.Background()), *config)
 	if err != nil {
