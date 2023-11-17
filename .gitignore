@@ -1,6 +1,9 @@
 # Main binary
 /s3impl
 
+# Stringer generated files
+*_string.go
+
 # Created by https://www.toptal.com/developers/gitignore/api/linux,go,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,go,visualstudiocode
 

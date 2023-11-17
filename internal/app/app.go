@@ -21,7 +21,7 @@ func New(ctx context.Context, config Config) (*App, error) {
 		server: &http.Server{
 			Addr:              config.Endpoint.Addr,
 			ReadHeaderTimeout: config.Endpoint.HTTPReadHeaderTimeout,
-			Handler:           s3router.New(zerolog.Ctx(ctx)),
+			Handler:           s3router.New(zerolog.Ctx(ctx), config.Endpoint.Hosts),
 		},
 	}
 

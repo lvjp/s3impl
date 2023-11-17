@@ -2,11 +2,17 @@ all: test build golangci-lint
 lint: golangci-lint super-linter
 pipeline: all lint
 
-build:
+generate:
+	go generate ./...
+
+build: generate
 	go build -v ./...
 
-test:
-	go test ./...
+test: generate
+	go test -v ./...
+
+run:
+	go run .
 
 golangci-lint:
 	golangci-lint run
@@ -20,4 +26,4 @@ super-linter:
 		--env VALIDATE_GO=false \
 		ghcr.io/super-linter/super-linter:slim-v5.6.1 bash
 
-.PHONY: all build golangci-lint lint pipeline super-linter test
+.PHONY: all build generate golangci-lint lint pipeline run super-linter test

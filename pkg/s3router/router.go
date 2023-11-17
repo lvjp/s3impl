@@ -10,18 +10,25 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func New(logger *zerolog.Logger) http.Handler {
+func New(logger *zerolog.Logger, hosts []string) http.Handler {
 	return &handler{
-		logger: logger,
+		logger:  logger,
+		factory: ContextFactory{Hosts: hosts},
 	}
 }
 
 type handler struct {
-	logger *zerolog.Logger
+	logger  *zerolog.Logger
+	factory ContextFactory
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.NewString()
+
+	context := h.factory.Build(r)
+	h.logger.Trace().
+		Interface("context", context).
+		Msg("Context decoded")
 
 	resp := &s3errors.S3Error{
 		HTTPStatusCode: http.StatusNotImplemented,
