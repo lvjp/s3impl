@@ -23,8 +23,6 @@ type handler struct {
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.NewString()
 
-	w.WriteHeader(http.StatusNotImplemented)
-
 	resp := &s3errors.S3Error{
 		HTTPStatusCode: http.StatusNotImplemented,
 		Code:           "NotImplemented",
