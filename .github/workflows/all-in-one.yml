@@ -10,12 +10,12 @@ jobs:
       - uses: actions/setup-go@v4.1.0
         with:
           go-version: "1.21.4"
-          cache: false
       - run: go generate ./...
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3.7.0
         with:
           version: v1.55.2
+          skip-pkg-cache: true
 
   super-linter:
     runs-on: ubuntu-22.04
