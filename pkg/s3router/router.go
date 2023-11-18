@@ -12,23 +12,18 @@ import (
 
 func New(logger *zerolog.Logger, hosts []string) http.Handler {
 	return &handler{
-		logger:  logger,
-		factory: ContextFactory{Hosts: hosts},
+		logger: logger,
+		hosts:  hosts,
 	}
 }
 
 type handler struct {
-	logger  *zerolog.Logger
-	factory ContextFactory
+	logger *zerolog.Logger
+	hosts  []string
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.NewString()
-
-	context := h.factory.Build(r)
-	h.logger.Trace().
-		Interface("context", context).
-		Msg("Context decoded")
 
 	resp := &s3errors.S3Error{
 		HTTPStatusCode: http.StatusNotImplemented,
@@ -36,6 +31,17 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Message:        "A header that you provided implies functionality that is not implemented.",
 		RequestID:      requestID,
 		Resource:       r.URL.String(),
+	}
+
+	route, err := DetermineRoute(r, h.hosts)
+	if err != nil {
+		resp.HTTPStatusCode = http.StatusBadRequest
+		resp.Code = "Badrequest"
+		resp.Message = err.Error()
+	} else {
+		h.logger.Trace().
+			Interface("route", route).
+			Msg("Route determinated")
 	}
 
 	writer := s3errors.APIWriter{}
