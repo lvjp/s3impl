@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.1
       - run: go generate ./...
-      - uses: super-linter/super-linter/slim@v5.7.0
+      - uses: super-linter/super-linter/slim@v5.7.2
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
