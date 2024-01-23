@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/aws/aws-sdk-go-v2 v1.24.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.47.5
-	github.com/google/uuid v1.4.0
+	github.com/google/uuid v1.6.0
 	github.com/rs/zerolog v1.31.0
 	github.com/sourcegraph/conc v0.3.0
 	github.com/spf13/cobra v1.8.0
